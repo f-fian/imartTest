@@ -1,17 +1,24 @@
 import Sequelize,{DataTypes} from 'sequelize';
+import dotenv from "dotenv"
 
+
+dotenv.config()
 
 const sequelize = new Sequelize(
-  'imart',
-  'postgres',
-  'postgres',
+  process.env.DATABASE_NAME,
+  process.env.DATABASE_USERNAME,
+  process.env.DATABASE_PASSWORD,
   {
-    host: 'localhost',
-    dialect: 'postgres', // Change the dialect to 'postgres'
+    host: process.env.DATABASE_HOST,
+    dialect: 'mysql',
+    port: 3306,
+    dialectOptions: {
+        connectTimeout:100000
+    }
   }
 );
 
-const Employee = sequelize.define('employee', {
+const Employee = sequelize.define('imart_employee', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
